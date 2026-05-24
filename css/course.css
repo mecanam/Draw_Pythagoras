@@ -1,0 +1,416 @@
+/* === リセット・基本 === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Rounded Mplus 1c', 'Hiragino Maru Gothic ProN', 'BIZ UDPGothic', sans-serif;
+    background: #1a1a2e;
+}
+
+/* ============================================================
+   ロビー画面
+   ============================================================ */
+#lobby {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+    position: relative;
+}
+
+.lobby-container {
+    background: rgba(255,255,255,0.95);
+    border-radius: 32px;
+    padding: 40px 48px;
+    text-align: center;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.3);
+    max-width: 520px;
+    width: 90%;
+}
+
+.lobby-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+}
+
+.lobby-desc {
+    font-size: 15px;
+    color: #636e72;
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
+.lobby-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.room-section {
+    text-align: center;
+}
+
+.room-label {
+    font-size: 13px;
+    color: #636e72;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.room-id {
+    font-size: 48px;
+    font-weight: 900;
+    color: #e07b00;
+    letter-spacing: 6px;
+    margin-top: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.qr-section {
+    text-align: center;
+}
+
+#qr-canvas {
+    width: 140px;
+    height: 140px;
+    border: 3px solid #dfe6e9;
+    border-radius: 12px;
+}
+
+.qr-hint {
+    font-size: 11px;
+    color: #b2bec3;
+    margin-top: 4px;
+}
+
+/* 設定 */
+.settings-section {
+    margin-bottom: 24px;
+}
+
+.setting-label {
+    font-size: 15px;
+    color: #2d3436;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.setting-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    justify-content: center;
+}
+
+.setting-control input[type="range"] {
+    width: 180px;
+    accent-color: #e07b00;
+}
+
+.setting-control span {
+    font-size: 20px;
+    font-weight: 800;
+    color: #e07b00;
+    min-width: 28px;
+}
+
+/* モード切替ボタン */
+.mode-toggle {
+    gap: 0;
+}
+
+.mode-btn {
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #636e72;
+    background: #f1f3f5;
+    border: 2px solid #dfe6e9;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+}
+
+.mode-btn:first-child {
+    border-radius: 12px 0 0 12px;
+    border-right: none;
+}
+
+.mode-btn:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.mode-btn.active {
+    background: #e07b00;
+    color: white;
+    border-color: #e07b00;
+}
+
+.auto-settings {
+    margin-top: 12px;
+}
+
+/* スタートボタン */
+.start-btn {
+    display: inline-block;
+    padding: 16px 56px;
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(135deg, #e07b00 0%, #c56a00 100%);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 6px 24px rgba(224,123,0,0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(224,123,0,0.5);
+}
+
+.start-btn:active {
+    transform: translateY(0);
+}
+
+.lobby-status {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #636e72;
+    min-height: 20px;
+}
+
+/* ============================================================
+   コース画面
+   ============================================================ */
+#course {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 背景 */
+.course-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        #f5f0e8 0%,
+        #ece4d4 30%,
+        #e8dcc8 60%,
+        #d4c4a8 100%
+    );
+    z-index: 0;
+}
+
+/* グリッドパターン */
+.course-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* キャンバス */
+#course-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* 球の投入マーカー */
+.ball-marker {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    cursor: grab;
+    user-select: none;
+    transition: left 0.1s ease-out;
+}
+
+.ball-marker:active {
+    cursor: grabbing;
+}
+
+.marker-ball {
+    width: 32px;
+    height: 32px;
+    background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b);
+    border-radius: 50%;
+    margin: 0 auto 6px;
+    box-shadow: 0 3px 10px rgba(192,57,43,0.4);
+    animation: marker-pulse 2s ease-in-out infinite;
+}
+
+@keyframes marker-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 3px 10px rgba(192,57,43,0.4); }
+    50% { transform: scale(1.1); box-shadow: 0 5px 20px rgba(192,57,43,0.6); }
+}
+
+.marker-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #c0392b;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.85);
+    padding: 2px 10px;
+    border-radius: 8px;
+}
+
+/* コントロールバー */
+.control-bar {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 12px;
+    background: rgba(255,255,255,0.92);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    backdrop-filter: blur(8px);
+}
+
+.ctrl-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2d3436;
+    background: #f1f3f5;
+    border: 2px solid #dfe6e9;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+}
+
+.ctrl-btn:hover {
+    background: #dfe6e9;
+}
+
+.ctrl-btn:active {
+    transform: scale(0.95);
+}
+
+#drop-ball-btn {
+    background: linear-gradient(135deg, #e07b00, #c56a00);
+    color: white;
+    border-color: #c56a00;
+}
+
+#drop-ball-btn:hover {
+    background: linear-gradient(135deg, #c56a00, #a55900);
+}
+
+.ctrl-icon {
+    font-size: 18px;
+}
+
+.ctrl-text {
+    font-size: 14px;
+}
+
+/* 自動モードインジケーター */
+.auto-indicator {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    background: rgba(224,123,0,0.9);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+}
+
+/* ゴールゾーン（底面） */
+.goal-zone {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(231,76,60,0.6) 20%,
+        rgba(231,76,60,0.8) 50%,
+        rgba(231,76,60,0.6) 80%,
+        transparent 100%
+    );
+    z-index: 2;
+}
+
+/* ============================================================
+   ゴール演出
+   ============================================================ */
+.goal-effect {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 8;
+    pointer-events: none;
+    animation: goalFlash 0.8s ease-out forwards;
+}
+
+@keyframes goalFlash {
+    0% { opacity: 1; transform: translateX(-50%) scale(0.5); }
+    50% { opacity: 0.8; transform: translateX(-50%) scale(1.5); }
+    100% { opacity: 0; transform: translateX(-50%) scale(2); }
+}
+
+.goal-effect::before {
+    content: '🎉';
+    font-size: 48px;
+    display: block;
+}
+
+/* ============================================================
+   レール登場エフェクト
+   ============================================================ */
+.rail-flash {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    background: rgba(255,255,255,0.3);
+    animation: railFlashAnim 0.4s ease-out forwards;
+}
+
+@keyframes railFlashAnim {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

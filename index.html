@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ピタゴラコース</title>
+    <link rel="stylesheet" href="css/course.css">
+</head>
+<body>
+    <!-- ロビー画面 -->
+    <div id="lobby">
+        <div class="lobby-container">
+            <h1 class="lobby-title">ピタゴラコース</h1>
+            <p class="lobby-desc">タブレットでかいたレールの上を<br>ボールがころがるよ！</p>
+
+            <div class="lobby-card">
+                <div class="room-section">
+                    <label class="room-label">ルームID</label>
+                    <div class="room-id" id="room-id">---</div>
+                </div>
+                <div class="qr-section">
+                    <canvas id="qr-canvas"></canvas>
+                    <p class="qr-hint">タブレットでスキャン</p>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <label class="setting-label">
+                    投入モード
+                    <div class="setting-control mode-toggle">
+                        <button class="mode-btn active" data-mode="manual" id="mode-manual-btn">手動</button>
+                        <button class="mode-btn" data-mode="auto" id="mode-auto-btn">自動</button>
+                    </div>
+                </label>
+                <div class="auto-settings" id="auto-settings" style="display:none">
+                    <label class="setting-label">
+                        投入間隔
+                        <div class="setting-control">
+                            <input type="range" id="ball-interval" min="2" max="15" value="5" step="1">
+                            <span id="interval-value">5</span> 秒
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button id="start-btn" class="start-btn">スタート</button>
+            <p class="lobby-status" id="lobby-status"></p>
+        </div>
+    </div>
+
+    <!-- コース画面 -->
+    <div id="course" style="display:none">
+        <!-- 背景 -->
+        <div class="course-bg"></div>
+
+        <!-- Matter.js 描画用キャンバス -->
+        <canvas id="course-canvas"></canvas>
+
+        <!-- 球の投入位置マーカー -->
+        <div class="ball-marker" id="ball-marker">
+            <div class="marker-ball"></div>
+            <div class="marker-label">ここからおとす</div>
+        </div>
+
+        <!-- コントロールバー -->
+        <div class="control-bar" id="control-bar">
+            <button class="ctrl-btn" id="drop-ball-btn" title="球をおとす">
+                <span class="ctrl-icon">🔴</span>
+                <span class="ctrl-text">おとす</span>
+            </button>
+            <button class="ctrl-btn" id="clear-rails-btn" title="レールを全消去">
+                <span class="ctrl-icon">🗑</span>
+                <span class="ctrl-text">リセット</span>
+            </button>
+            <button class="ctrl-btn" id="exit-btn" title="ロビーに戻る">
+                <span class="ctrl-icon">🚪</span>
+                <span class="ctrl-text">もどる</span>
+            </button>
+        </div>
+
+        <!-- 自動モード表示 -->
+        <div class="auto-indicator" id="auto-indicator" style="display:none">
+            <span id="auto-countdown"></span>秒後に投入
+        </div>
+
+        <!-- 底面ゴールエフェクト用 -->
+        <div class="goal-zone" id="goal-zone"></div>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+    <script src="js/course.js"></script>
+</body>
+</html>

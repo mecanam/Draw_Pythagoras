@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ピタゴラコース - レールをかこう</title>
+    <link rel="stylesheet" href="css/draw.css">
+</head>
+<body>
+    <!-- 接続画面 -->
+    <div id="connect-screen">
+        <div class="connect-container">
+            <div class="connect-icon">🔴</div>
+            <h1>ピタゴラコース</h1>
+            <p class="connect-desc">ルームIDをいれてね</p>
+            <input type="text" id="room-id-input" placeholder="ルームID" maxlength="12" autocomplete="off" autocorrect="off" spellcheck="false">
+            <button id="connect-btn">つなげる</button>
+            <p id="connect-status"></p>
+        </div>
+    </div>
+
+    <!-- お絵かき画面 -->
+    <div id="draw-screen" style="display:none">
+        <!-- ヘッダー -->
+        <div class="header">
+            <button id="undo-btn" class="header-btn" title="もどす">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+            </button>
+            <h1 class="title">レールをかこう！</h1>
+            <button id="clear-btn" class="header-btn" title="ぜんぶけす">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- メインエリア -->
+        <div class="main-area">
+            <!-- 左ツールバー -->
+            <div class="toolbar">
+                <button class="tool-btn active" data-tool="pen" title="ペン">
+                    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                        <path d="M2 2l7.586 7.586"></path>
+                        <circle cx="11" cy="11" r="2"></circle>
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="eraser" title="けしゴム">
+                    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 20H7L3 16c-.8-.8-.8-2 0-2.8L14.6 1.6c.8-.8 2-.8 2.8 0L21.4 5.6c.8.8.8 2 0 2.8L10 20"></path>
+                        <path d="M6 12l5 5"></path>
+                    </svg>
+                </button>
+
+                <div class="tool-divider"></div>
+
+                <button class="size-btn" data-size="4" title="ほそい">
+                    <span class="size-dot" style="width:6px;height:6px;"></span>
+                </button>
+                <button class="size-btn active" data-size="8" title="ふつう">
+                    <span class="size-dot" style="width:12px;height:12px;"></span>
+                </button>
+                <button class="size-btn" data-size="14" title="ふとい">
+                    <span class="size-dot" style="width:20px;height:20px;"></span>
+                </button>
+            </div>
+
+            <!-- キャンバス -->
+            <div class="canvas-wrapper">
+                <canvas id="draw-canvas"></canvas>
+            </div>
+
+            <!-- 送信ボタン -->
+            <div class="send-area">
+                <button id="send-btn" disabled>
+                    <div class="send-icon-wrap">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </div>
+                    <span class="send-text">おくる</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- カラーパレット -->
+        <div class="color-palette" id="color-palette">
+            <!-- JSで生成 -->
+        </div>
+    </div>
+
+    <!-- 送信完了画面 -->
+    <div id="sent-screen" style="display:none">
+        <div class="sent-overlay">
+            <div class="sent-container">
+                <div class="sent-icon">🎉</div>
+                <h2 class="sent-message">レールを<br>おくったよ！</h2>
+                <p class="sent-sub">スクリーンにレールがあらわれるよ</p>
+                <button id="draw-again-btn">もういちど かく</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="js/draw.js"></script>
+</body>
+</html>
